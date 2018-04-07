@@ -16,24 +16,24 @@ window.onload = function() {
 			function makeButtons() {
 				var options = [
 					{
-						name: "shaddowBunny",
+						name: "shadowBunny",
 						image: "shadowbunny.png",
 						search: "?start=true"
 					},
 					{
 						name: "Evelyn",
 						image: "https://img0.etsystatic.com/197/3/11013998/il_570xN.1445707712_j61z.jpg",
-						search: "?start=true&item=bunny&yarn=Lion%20Brand%20Homespun&mc=Barley&cc=Rococo&cc_areas=bunnyprofile_chin,bunnyprofile_stomach&accent_color=Rococo" //bunnyface_chin was in the mix too - eliminate bunnyface_[anything] when getting cc_areas (for future pairing w/ custom orders website)
+						search: "?start=true&item=bunny&yarn=Lion%20Brand%20Homespun&mc=Barley&cc=Rococo&cc_areas=bunnyprofile_chin,bunnyface_chin,bunnyprofile_stomach&accent_color=Rococo"
 					},
 					{
 						name: "Penelope",
 						image: "https://img.etsystatic.com/il/120250/1445688716/il_570xN.1445688716_kxe0.jpg?version=1",
-						search: "?start=true&item=bunny&yarn=Bernat%20Pipsqueak&mc=Chocolate&cc=Chocolate&accent_color=Chocolate"	// cc=noCC&cc_areas=noCC
+						search: "?start=true&item=bunny&yarn=Bernat%20Pipsqueak&mc=Chocolate&cc=Chocolate&accent_color=none"
 					},
 					{
 						name: "Pedro",
 						image: "https://img.etsystatic.com/il/784dbf/1448934102/il_570xN.1448934102_rq6o.jpg?version=0",
-						search: "?start=true&item=bunny&yarn=Premier%20Parfait&mc=Toffee&cc=White&cc_areas=bunnyprofile_tail_whole,bunnyprofile_chin,bunnyprofile_stomach&accent_color=Toffee" //bunnyface_chin
+						search: "?start=true&item=bunny&yarn=Premier%20Parfait&mc=Toffee&cc=White&cc_areas=bunnyprofile_tail_half,bunnyprofile_chin,bunnyprofile_stomach&accent_color=Toffee"
 					},
 					{
 						name: "Rosie",
@@ -118,9 +118,16 @@ window.onload = function() {
 					//step 0: get urls for mc and cc
 						var mainColor = stash[ get.yarn ][ get.mc ]
 						var contrastingColor = stash[ get.yarn ][ get.cc ]
-						// var accentColor = stash[ get.yarn ][ get.accent_color || get.mc ]
-						// var accentColor = stash[ get.yarn ][ get.mc ]
-						var accentColor = stash[ get.yarn ][ get.accent_color]
+		
+						if (!get.accent_color) {
+							var accentColor = stash[ get.yarn ][ get.mc ]
+						}
+						else if (get.accent_color == "none") {
+							var accentColor = stash[ get.yarn ][ get.mc ]
+						}
+						else {
+							var accentColor = stash[ get.yarn ][ get.accent_color]
+						}
 						var rabbit = "<div id='rabbit' position='legsIn'>"
 
 					//step 1: color the main animal
@@ -138,7 +145,9 @@ window.onload = function() {
 					//step 2: color the selected cc areas
 						if (location.search.indexOf("cc_areas") > -1) {
 							get.cc_areas.forEach(function(area) {
-								rabbit = rabbit + "<div id='" + area + "' style='background-image: url(" + contrastingColor + ")'></div>"
+								if(area.indexOf("bunnyprofile") > -1) {
+									rabbit = rabbit + "<div id='" + area + "' style='background-image: url(" + contrastingColor + ")'></div>"
+								}
 							})
 						}
 					
@@ -177,25 +186,25 @@ window.onload = function() {
 						newCarrot.style.bottom = randomCarrot + "px"
 						newCarrot.style.left = window.innerWidth + "px"
 
-						var carrotBody = document.createElement("div")
-						carrotBody.className = "body"
-						newCarrot.appendChild(carrotBody)
+						// var carrotBody = document.createElement("div")
+						// carrotBody.className = "body"
+						// newCarrot.appendChild(carrotBody)
 
-						var n = 1
-						while (n <= 4) {
-							var carrotLeaf = document.createElement("div")
-							carrotLeaf.className = "leaf" + n
-							newCarrot.appendChild(carrotLeaf)
-							n++
-						}
+						// var n = 1
+						// while (n <= 4) {
+						// 	var carrotLeaf = document.createElement("div")
+						// 	carrotLeaf.className = "leaf" + n
+						// 	newCarrot.appendChild(carrotLeaf)
+						// 	n++
+						// }
 
-						var n = 1
-						while (n <= 6) {
-							var carrotLine = document.createElement("div")
-							carrotLine.className = "line" + n
-							newCarrot.appendChild(carrotLine)
-							n++
-						}
+						// var n = 1
+						// while (n <= 6) {
+						// 	var carrotLine = document.createElement("div")
+						// 	carrotLine.className = "line" + n
+						// 	newCarrot.appendChild(carrotLine)
+						// 	n++
+						// }
 
 						
 					
@@ -249,62 +258,58 @@ window.onload = function() {
 
 		/* spawnFlowerBed */
 			function spawnFlowerBed() {
-				if (!Math.floor(Math.random() * 18) && (countdownTimer == 20 || countdownTimer == 60)) {
-					var flowerBed = document.createElement("div")
-					flowerBed.className = "flowerBed"
-						
-						spawnFlower(flowerBed, "tulip1")
-						spawnFlower(flowerBed, "tulip2")
-						spawnFlower(flowerBed, "daisy1")
-						spawnFlower(flowerBed, "daisy2")
-						spawnFlower(flowerBed, "dandelion1")
-						spawnFlower(flowerBed, "dandelion2")
-						spawnFlower(flowerBed, "dandelion3")
-						spawnFlower(flowerBed, "dandelion3")
-						// spawnFlower(flowerBed, "patch1")
-						// spawnFlower(flowerBed, "patch2")
-
-						flowerBed.style.left = window.innerWidth + "px"
+				
+				if (!Math.floor(Math.random() * 15) && (countdownTimer == 20 || countdownTimer == 60)) {
 					
+					var flowerBed = document.createElement("div")
+						
+					var f = Math.floor(Math.random() * 4)
+
+					var flowers = ["besusans", "daisies", "dandelion", "tulips"]
+
+					flowerBed.className = "flowerBed " + flowers[f]
+
+					flowerBed.style.left = window.innerWidth + "px"
+
 					document.getElementById("background").appendChild(flowerBed)
 				}
 			}
 
 		/* spawnFlower */
-			function spawnFlower(parentDiv, type) {
-				var petals = document.createElement("div")
-				petals.className = "flower_petals_" + type
-				parentDiv.appendChild(petals)
+			// function spawnFlower(parentDiv, type) {
+			// 	var petals = document.createElement("div")
+			// 	petals.className = "flower_petals_" + type
+			// 	parentDiv.appendChild(petals)
 
-				var stem = document.createElement("div")
-				stem.className = "flower_stem_" + type
-				parentDiv.appendChild(stem)
+			// 	var stem = document.createElement("div")
+			// 	stem.className = "flower_stem_" + type
+			// 	parentDiv.appendChild(stem)
 				
-				var grass = document.createElement("div")
-				grass.className = "flower_grass_" + type
-				parentDiv.appendChild(grass)	
+			// 	var grass = document.createElement("div")
+			// 	grass.className = "flower_grass_" + type
+			// 	parentDiv.appendChild(grass)	
 
-				// if (type == "daisy1" || type == "daisy2") {
-				// 	var center = document.createElement("div")
-				// 	center.className = "flower_center_" + type
-				// 	parentDiv.appendChild(center)
-				// }
-				if (type == "daisy2") {
-					var center = document.createElement("div")
-					center.className = "flower_center_" + type
-					parentDiv.appendChild(center)
-				}
-				else if (type == "daisy1") {
-					var center = document.createElement("div")
-					center.className = "flower_center_" + type
-					parentDiv.appendChild(center)
-				}
-			}
+			// 	// if (type == "daisy1" || type == "daisy2") {
+			// 	// 	var center = document.createElement("div")
+			// 	// 	center.className = "flower_center_" + type
+			// 	// 	parentDiv.appendChild(center)
+			// 	// }
+			// 	if (type == "daisy2") {
+			// 		var center = document.createElement("div")
+			// 		center.className = "flower_center_" + type
+			// 		parentDiv.appendChild(center)
+			// 	}
+			// 	else if (type == "daisy1") {
+			// 		var center = document.createElement("div")
+			// 		center.className = "flower_center_" + type
+			// 		parentDiv.appendChild(center)
+			// 	}
+			// }
 
 		/* spawnBackground */
 			function spawnBackground() {
 				spawnClouds()
-				// spawnFlowerBed()
+				spawnFlowerBed()
 			}
 
 		/* spawnClouds */
@@ -396,6 +401,8 @@ window.onload = function() {
 			function moveBackground() {
 				moveClouds()
 				moveFlowerBed()
+				moveGrass("grass1")
+				moveGrass("grass2")
 			}
 
 		/* moveClouds */
@@ -420,6 +427,7 @@ window.onload = function() {
 
 		/* moveFlowerBed */
 			function moveFlowerBed() {
+				
 				var flowerBeds = Array.from(document.getElementsByClassName("flowerBed"))
 
 				flowerBeds.forEach(function(flowerBed) {
@@ -436,6 +444,22 @@ window.onload = function() {
 						flowerBed.style.left = newLeft + "px"
 					}
 				})
+			}
+
+		/* moveGrass */
+			function moveGrass(grassID) {
+				var grass = document.getElementById(grassID)
+				var grassStyle = window.getComputedStyle(grass)
+				var grassLeft = Number(grassStyle.left.replace("px", ""))
+
+				if (grassLeft <= -1 * window.innerWidth) {
+					grass.style.left = window.innerWidth - 2 + "px"
+				}
+
+				else {
+					grassLeft = grassLeft - 2
+					grass.style.left = grassLeft + "px"
+				}
 			}
 
 		/* maybeReset */
@@ -560,19 +584,7 @@ window.onload = function() {
 
 
 /* to do */
-	// background image (yarn) for carrots
-	// grass along ground (repeating) - take picture
 		// then put flowers back (in front of grass)
-
-
-// * HELP - 
-
-	// penelope - no cc areas, but it's coming up with some div w/ id="no_CC" and it's freaking out
-		// ditto Pedro and Rosie but w/ bunnyface_chin - (short-term solution of) deleting that part worked for Evelyn, so...?
-	// ENDbunny same position no matter what display monitor is
-	// why didn't span work for carrotCollector title?
-		// why are labels for bunnies now weirdly spaced? - b/c 90px for carrotCollector pacifico (which is why I wanted the span)
-	// what the frak happened to flower_center_daisy2?
 
 	// other obstacle(s)
 	// music
