@@ -67,6 +67,7 @@ window.onload = function() {
 					}, 150)
 
 					countdownTimer = 0
+					cooldownTimer = 0
 					scrollLoop = setInterval(function() {
 						// get rabbit
 							var rabbit = document.getElementById("rabbit")
@@ -89,6 +90,14 @@ window.onload = function() {
 							}
 							else {
 								countdownTimer = countdownTimer - 1
+							}
+							
+						// cooldownTimer for obstacles
+							if (cooldownTimer == 0) {
+								cooldownTimer = 0
+							}
+							else {
+								cooldownTimer = cooldownTimer - 1
 							}
 					}, 10)
 			}
@@ -214,7 +223,7 @@ window.onload = function() {
 
 		/* spawnObstacles */
 			function spawnObstacles() {
-				if (countdownTimer == 50) {
+				if (countdownTimer == 50 && cooldownTimer == 0) {
 					var score = Number(document.getElementById("scoreNumber").innerText)
 					
 					if (score < 15) {
@@ -233,7 +242,8 @@ window.onload = function() {
 						var probability = 1
 					}
 
-					if ( !Math.floor(Math.random() * probability) ) {					
+					if ( !Math.floor(Math.random() * probability) ) {
+						cooldownTimer = 50					
 						var newObstacle = document.createElement("div")
 						newObstacle.className = "obstacle"
 						newObstacle.style.left = window.innerWidth + "px"

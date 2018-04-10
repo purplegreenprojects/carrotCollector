@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<title>carrotCollector</title>
-		<link rel='shortcut icon' type='image/png' href='KD_faviconFINAL.png'></link>
+		<link rel='shortcut icon' type='image/png' href='KDfavicon.png'></link>
 		<link href="https://fonts.googleapis.com/css?family=Pacifico|Roboto+Condensed" rel="stylesheet">
 		<link type="text/css" rel="stylesheet" href="stylesheet.css"/>
 		<script type="text/javascript" src="yarn.js"></script>
@@ -10,22 +10,11 @@
 		<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
 	</head>
 	<body>
+		<audio style="display: none;" autoplay="true" loop="true" type="audio/mpeg"><source src="collectingcarrots.wav"></source></audio>
 		<div id="container">
 			
 			<div id='score'>
-				<div class="scoreCarrot">
-					<div class="body"></div>
-					<div class="leaf1"></div>
-					<div class="leaf2"></div>
-					<div class="leaf3"></div>
-					<div class="leaf4"></div>
-					<div class="line1"></div>
-					<div class="line2"></div>
-					<div class="line3"></div>
-					<div class="line4"></div>
-					<div class="line5"></div>
-					<div class="line6"></div>
-				</div> 
+				<div class="scoreCarrot"></div> 
 				<div id="scoreNumber"></div>
 			</div>
 
@@ -69,7 +58,7 @@
 					<div class="flowers_end">
 						<div id="ENDflower_petals_tulip1"></div>
 						<div id="ENDflower_stem_tulip1"></div>
-						<div id="ENDflower_petals_tulip2"></div>
+<!-- 						<div id="ENDflower_petals_tulip2"></div> -->
 						<div id="ENDflower_stem_tulip2"></div>
 						<div id="ENDflower_petals_daisy1"></div>
 						<div id="ENDflower_stem_daisy1"></div>
@@ -84,7 +73,20 @@
 						<div id="ENDflower_petals_dandelion3"></div>
 						<div id="ENDflower_stem_dandelion3"></div>
 						<div id="ENDgrass1"></div>
-						<div id="ENDgrass2"></div>					
+						<div id="ENDgrass2"></div>	
+						<div class="ENDCarrot">
+							<div class="body"></div>
+							<div class="leaf1"></div>
+							<div class="leaf2"></div>
+							<div class="leaf3"></div>
+							<div class="leaf4"></div>
+							<div class="line1"></div>
+							<div class="line2"></div>
+							<div class="line3"></div>
+							<div class="line4"></div>
+							<div class="line5"></div>
+							<div class="line6"></div>
+						</div> 				
 					</div>
 				</div>
 				<div id="endGame_options" class="hidden">
