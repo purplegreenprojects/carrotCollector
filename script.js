@@ -1,5 +1,14 @@
 window.onload = function() {
 
+	/*** music ***/
+		var clicked = false
+		document.addEventListener("click", function() {
+			if (!clicked) {
+				clicked = true
+				document.getElementsByTagName("audio")[0].play()
+			}
+		})
+	
 	/*** onload ***/
 		if (location.search.length > 1) {
 			var playing = false
